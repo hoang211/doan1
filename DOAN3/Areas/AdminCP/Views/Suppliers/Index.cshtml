@@ -1,0 +1,59 @@
+﻿@model IEnumerable<DOAN3.Models.Supplier>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AdminCP/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quản lý nhà cung cấp</h2>
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary fa  fa-plus" })
+</p>
+<table class="table table-bordered table-striped " id="dataTable" style="text-align:center">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sdt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sdt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { id = item.Supplierid }, new { @Class = "btn btn-warning fa fa-pencil" })
+
+                    @Html.ActionLink(" ", "Details", new { id = item.Supplierid }, new { @Class = "btn btn-primary fa fa-eye" })
+
+                    @Html.ActionLink(" ", "Delete", new { id = item.Supplierid }, new { @Onclick = "return confirm('Muốn xoá không?');", @class = "btn btn-danger fa fa-trash" })
+
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

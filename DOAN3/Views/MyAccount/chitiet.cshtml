@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "chitiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Products</a></li>
+            <li class="breadcrumb-item active">OrderDetails</li>
+        </ul>
+    </div>
+</div>
+<div class="my-account" ng-app="myoder" ng-controller="oderctrl">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Hình Ảnh</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in data">
+                                        <td>{{$index+1}}</td>
+                                        <td><img ng-src="{{item.Images}}" /></td>
+                                        <td>{{item.ProductName}}</td>
+                                        <td>{{item.DateCreated.slice(6,-2)|date:'dd/MM/yyyy'}}</td>
+                                        <td>{{item.Quantily}}</td>
+                                        <td>{{item.Price|number:0}}₫</td>
+                                        <td>{{item.Acount|number:0}}₫</td>
+                                        <td>
+                                            <p ng-show="item.Status == false" style="color:forestgreen;">Đang giao hàng</p>
+                                            <p ng-show="item.Status" style="color:forestgreen;">Đã giao hàng</p>
+                                        </td>
+                                        <td> <button ng-show="item.Status == false" style="background-color:darkred;" class="btn btn-danger">Hủy</button></td>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
+                        <h4>Account Details</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" placeholder="First Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" placeholder="Last Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" placeholder="Mobile">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" placeholder="Email">
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" placeholder="Address">
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn">Update Account</button>
+                                <br><br>
+                            </div>
+                        </div>
+                        <h4>Password change</h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control" type="password" placeholder="Current Password">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" placeholder="New Password">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" placeholder="Confirm Password">
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        var myapp = angular.module("myoder", []);
+        myapp.controller("oderctrl", function ($scope, $http) {
+            $scope.data = [];
+            $scope.ma = 0;
+            //$scope.tong = 0;
+            var url = window.location.pathname;
+            var id = url.substring(url.lastIndexOf('/') + 1);
+            $scope.id = id;
+            $http({
+                url: "/MyAccount/chitiet/?id="+id,
+                method: "GET"
+            }
+            ).then(function (res) {
+                $scope.data = res.data;
+                $scope.ma = $scope.data.OrderId;
+            });
+           
+            
+        });
+    </script>
+}
+

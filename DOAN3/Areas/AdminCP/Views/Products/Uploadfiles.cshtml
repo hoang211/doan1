@@ -1,0 +1,53 @@
+﻿<div ng-app="myapp" ng-controller="myctrl" class="form-group">
+    Hình ảnh
+    <div class="col-md-10">
+        <input type="file" multiple="multiple" ngf-select="FileUpload($files)" />
+        <hr />
+        Ảnh đã chọn:
+        <ul>
+            <li ng-repeat="file in SelectedFiles">
+                <img style="width:100px;height:100px;" src="~/FileUpload/files/{{file.name}}" />
+                <br />
+            </li>
+        </ul>
+        <div id="dvProgress" class="progress" ng-show="Progress >= 0">
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.min.js"></script>
+    <script type="text/javascript">
+        var myapp = angular.module('myapp', ['ngFileUpload'])
+        myapp.controller('myctrl', function ($scope, Upload, $timeout) {
+            $scope.UploadFiles = function (files) {
+                $scope.SelectedFiles = files;
+                if ($scope.SelectedFiles && $scope.SelectedFiles.length) {
+                    Upload.upload({
+                        url: '/AdminCP/Products/Uploadfiles',
+                        data: {
+                            files: $scope.SelectedFiles
+                        }
+                    }).then(function (response) {
+                        $timeout(function () {
+                            $scope.Result = response.data;
+                        });
+                    }, function (response) {
+                        if (response.status > 0) {
+                            var errorMsg = response.status + ': ' + response.data;
+                            alert(errorMsg);
+                        }
+                    }, function (evt) {
+                        var element = angular.element(document.querySelector('#dvProgress'));
+                        $scope.Progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                        element.html('<div style="width: ' + $scope.Progress + '%">' + $scope.Progress + '%</div>');
+                    }
+                    );
+                }
+
+            };
+
+        });
+
+    </script>
+}

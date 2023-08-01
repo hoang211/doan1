@@ -1,0 +1,83 @@
+﻿@model IEnumerable<DOAN3.Models.Products>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AdminCP/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quản lý sản phẩm</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary fa  fa-plus" })
+</p>
+<table class="table table-bordered table-striped " id="dataTable" style="text-align:center">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Images)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.MoreImages)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Quantily)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductsCategory.CategoryName)
+            </th>
+            <th>Function</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                <img src="~/FileUpload/files//images/@item.Images" style="width:100px;height:100px;" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantily)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.Raw(@item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductsCategory.CategoryName)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.ProductId }, new { @Class = "btn btn-warning fa fa-pencil" })
+
+                @Html.ActionLink(" ", "Details", new { id = item.ProductId }, new { @Class = "btn btn-primary fa fa-eye" })
+
+                @Html.ActionLink(" ", "Delete", new { id = item.ProductId }, new { @Onclick = "return confirm('Muốn xoá không?');", @class = "btn btn-danger fa fa-trash" })
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <!-- Page level plugins -->
+    <script src="/Assets/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/Assets/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/Assets/admin/js/demo/datatables-demo.js"></script>
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="075f8d630f3d4ef08d435b10a347c2a3" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="DOAN3Model.Customer" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.ImportBill" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.ImportBillDetail" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.News" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.OrderDetail" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.Orders" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.Products" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.ProductsCategory" Width="1.5" PointX="0.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.Staffs" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.Supplier" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.sysdiagrams" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOAN3Model.Users" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="DOAN3Model.FK__ImportBil__Impor__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="DOAN3Model.FK__ImportBil__Suppl__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="DOAN3Model.FK__ImportBil__UserI__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="DOAN3Model.FK__ImportBil__Produ__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="DOAN3Model.FK__News__UserId__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="DOAN3Model.FK__OrderDeta__Order__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="DOAN3Model.FK__OrderDeta__Produ__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="DOAN3Model.FK__Orders__UserId__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="DOAN3Model.FK__Products__Catego__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="DOAN3Model.FK__Staffs__UserId__2D27B809" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

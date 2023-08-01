@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DOAN3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sdt" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDay" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="ImportBill">
+    <Key>
+      <PropertyRef Name="ImportBillId" />
+    </Key>
+    <Property Name="ImportBillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Supplierid" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ImportDate" Type="DateTime" Precision="0" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="10" Scale="3" />
+    <NavigationProperty Name="ImportBillDetail" Relationship="Self.FK__ImportBil__Impor__35BCFE0A" FromRole="ImportBill" ToRole="ImportBillDetail" />
+    <NavigationProperty Name="Supplier" Relationship="Self.FK__ImportBil__Suppl__300424B4" FromRole="ImportBill" ToRole="Supplier" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__ImportBil__UserI__30F848ED" FromRole="ImportBill" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="ImportBillDetail">
+    <Key>
+      <PropertyRef Name="ImportBillId" />
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ImportBillId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Quantily" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="3" />
+    <NavigationProperty Name="ImportBill" Relationship="Self.FK__ImportBil__Impor__35BCFE0A" FromRole="ImportBillDetail" ToRole="ImportBill" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__ImportBil__Produ__36B12243" FromRole="ImportBillDetail" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="NewsId" />
+    </Key>
+    <Property Name="NewsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="DateSubmitted" Type="DateTime" Precision="0" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__News__UserId__403A8C7D" FromRole="News" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="ProductId" />
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="Quantily" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="Acount" Type="Decimal" Precision="10" Scale="3" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__OrderDeta__Order__3D5E1FD2" FromRole="OrderDetail" ToRole="Orders" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__OrderDeta__Produ__3C69FB99" FromRole="OrderDetail" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="OrderDetail" Relationship="Self.FK__OrderDeta__Order__3D5E1FD2" FromRole="Orders" ToRole="OrderDetail" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Orders__UserId__5AEE82B9" FromRole="Orders" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Images" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MoreImages" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Quantily" Type="Byte" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="3" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ImportBillDetail" Relationship="Self.FK__ImportBil__Produ__36B12243" FromRole="Products" ToRole="ImportBillDetail" />
+    <NavigationProperty Name="OrderDetail" Relationship="Self.FK__OrderDeta__Produ__3C69FB99" FromRole="Products" ToRole="OrderDetail" />
+    <NavigationProperty Name="ProductsCategory" Relationship="Self.FK__Products__Catego__267ABA7A" FromRole="Products" ToRole="ProductsCategory" />
+  </EntityType>
+  <EntityType Name="ProductsCategory">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="CategoryName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__Catego__267ABA7A" FromRole="ProductsCategory" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Staffs">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sdt" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDay" Type="DateTime" Precision="0" />
+    <Property Name="Addres" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Staffs__UserId__2D27B809" FromRole="Staffs" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="Supplierid" />
+    </Key>
+    <Property Name="Supplierid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupplierName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Sdt" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ImportBill" Relationship="Self.FK__ImportBil__Suppl__300424B4" FromRole="Supplier" ToRole="ImportBill" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Role" Type="Boolean" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="DateCreated" Type="DateTime" Precision="0" />
+    <Property Name="FullName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Sdt" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ImportBill" Relationship="Self.FK__ImportBil__UserI__30F848ED" FromRole="Users" ToRole="ImportBill" />
+    <NavigationProperty Name="News" Relationship="Self.FK__News__UserId__403A8C7D" FromRole="Users" ToRole="News" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserId__5AEE82B9" FromRole="Users" ToRole="Orders" />
+    <NavigationProperty Name="Staffs" Relationship="Self.FK__Staffs__UserId__2D27B809" FromRole="Users" ToRole="Staffs" />
+  </EntityType>
+  <Association Name="FK__ImportBil__Impor__35BCFE0A">
+    <End Role="ImportBill" Type="Self.ImportBill" Multiplicity="1" />
+    <End Role="ImportBillDetail" Type="Self.ImportBillDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImportBill">
+        <PropertyRef Name="ImportBillId" />
+      </Principal>
+      <Dependent Role="ImportBillDetail">
+        <PropertyRef Name="ImportBillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportBil__Suppl__300424B4">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ImportBill" Type="Self.ImportBill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Supplierid" />
+      </Principal>
+      <Dependent Role="ImportBill">
+        <PropertyRef Name="Supplierid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportBil__UserI__30F848ED">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ImportBill" Type="Self.ImportBill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ImportBill">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportBil__Produ__36B12243">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="ImportBillDetail" Type="Self.ImportBillDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ImportBillDetail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__News__UserId__403A8C7D">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__Order__3D5E1FD2">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__Produ__3C69FB99">
+    <End Role="Products" Type="Self.Products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__UserId__5AEE82B9">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__Catego__267ABA7A">
+    <End Role="ProductsCategory" Type="Self.ProductsCategory" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductsCategory">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Staffs__UserId__2D27B809">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Staffs" Type="Self.Staffs" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Staffs">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DOAN3Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customer" EntityType="Self.Customer" />
+    <EntitySet Name="ImportBill" EntityType="Self.ImportBill" />
+    <EntitySet Name="ImportBillDetail" EntityType="Self.ImportBillDetail" />
+    <EntitySet Name="News" EntityType="Self.News" />
+    <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="ProductsCategory" EntityType="Self.ProductsCategory" />
+    <EntitySet Name="Staffs" EntityType="Self.Staffs" />
+    <EntitySet Name="Supplier" EntityType="Self.Supplier" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK__ImportBil__Impor__35BCFE0A" Association="Self.FK__ImportBil__Impor__35BCFE0A">
+      <End Role="ImportBill" EntitySet="ImportBill" />
+      <End Role="ImportBillDetail" EntitySet="ImportBillDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportBil__Suppl__300424B4" Association="Self.FK__ImportBil__Suppl__300424B4">
+      <End Role="Supplier" EntitySet="Supplier" />
+      <End Role="ImportBill" EntitySet="ImportBill" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportBil__UserI__30F848ED" Association="Self.FK__ImportBil__UserI__30F848ED">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ImportBill" EntitySet="ImportBill" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportBil__Produ__36B12243" Association="Self.FK__ImportBil__Produ__36B12243">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ImportBillDetail" EntitySet="ImportBillDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__News__UserId__403A8C7D" Association="Self.FK__News__UserId__403A8C7D">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__Order__3D5E1FD2" Association="Self.FK__OrderDeta__Order__3D5E1FD2">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__Produ__3C69FB99" Association="Self.FK__OrderDeta__Produ__3C69FB99">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__UserId__5AEE82B9" Association="Self.FK__Orders__UserId__5AEE82B9">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__Catego__267ABA7A" Association="Self.FK__Products__Catego__267ABA7A">
+      <End Role="ProductsCategory" EntitySet="ProductsCategory" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Staffs__UserId__2D27B809" Association="Self.FK__Staffs__UserId__2D27B809">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Staffs" EntitySet="Staffs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DOAN3.Models.Users>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AdminCP/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quản lý người dùng</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary fa  fa-plus" })
+</p>
+
+<table class="table table-bordered table-striped " id="dataTable" style="text-align:center">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassWord)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sdt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.Staffs.FullName)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PassWord)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sdt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>*@
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Staffs.FullName)
+                </td>*@
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { id = item.UserId }, new { @Class = "btn btn-warning fa fa-pencil" }) 
+                    @Html.ActionLink(" ", "Details", new { id = item.UserId }, new { @Class = "btn btn-primary fa fa-eye" }) 
+                    @Html.ActionLink(" ", "Delete", new { id = item.UserId }, new { @Onclick = "return confirm('Muốn xoá không?');", @class = "btn btn-danger fa fa-trash" })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section scripts{
+    <!-- Page level plugins -->
+    <script src="/Assets/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/Assets/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/Assets/admin/js/demo/datatables-demo.js"></script>
+}

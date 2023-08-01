@@ -1,0 +1,121 @@
+﻿@model IEnumerable<DOAN3.Models.OrderDetail>
+@{
+    ViewBag.Title = "ViewCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Products</a></li>
+            <li class="breadcrumb-item active">Cart</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Cart Start -->
+@using (Html.BeginForm("CartUpdate", "Cart", FormMethod.Post))
+{
+    <div class="cart-page">
+        <div class="container-fluid" ng-app="myShoppingList" ng-controller="myCtrl">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="cart-page-inner">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="Mytable" class="align-middle">
+                                    @{double tongtien = 0;}
+                                    @foreach (var sp in Model)
+                                    {
+
+                                        <tr>
+                                            <td>
+                                                <div class="img">
+                                                    <a href="#"><img src="@sp.Products.Images" alt="Product Image"></a>
+                                                    <p>@sp.Products.ProductName</p>
+                                                </div>
+                                            </td>
+                                            <td>@String.Format(format, "{0:c0}", @sp.Products.Price)</td>
+                                            <td>
+                                                <div class="qty">
+                                                    @*<button class="btn-minus"><i class="fa fa-minus"></i></button>*@
+                                                    <input type="text"name="quantily" value="@sp.Quantily">
+                                                    @*<button class="btn-plus"><i class="fa fa-plus"></i></button>*@
+                                                </div>
+                                            </td>
+                                            <td>@String.Format(format, "{0:c0}", (@sp.Quantily * @sp.Products.Price))</td>
+                                            <td><a href="@Url.Action("cartdelete", "Cart", new { productid = sp.ProductId })"><i class="fa fa-trash" style="color:black"></i></a></td>
+                                            
+
+                                        </tr>
+                                        tongtien += Convert.ToDouble(sp.Quantily * sp.Products.Price);
+                                    }
+
+                                </tbody>
+
+                            </table>
+                            <tr>
+                                <br />
+                                <td><button><a href="~/Product/Index">Tiếp tục mua hàng</a></button></td>
+                            </tr>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart-page-inner">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="coupon">
+                                    <input type="text" placeholder="Coupon Code">
+                                    <button>Apply Code</button>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="cart-summary">
+
+                                    @*@foreach (var sp in Model.ToList())*@
+                                    @*{*@
+                                    <div class="cart-content">
+                                        <h1>Cart Summary</h1>
+                                        @*<p>ProductName:<span>@sp.Products.ProductName</span></p>*@
+                                        <p>Sub Total<span>@String.Format(format, "{0:c0}",@tongtien)</span></p>
+                                        <p>Shipping Cost<span>$0</span></p>
+                                        <h2>Grand Total<span>@String.Format(format, "{0:c0}",@tongtien )</span></h2>
+                                    </div>
+                                    <div class="cart-btn">
+                                        @*<button>Update Cart</button>*@
+                                        <button type="submit" class="btn btn-sm btn-info" name="CapNhat" value="Cập nhật giỏ hàng">Updata Cart</button>
+                                        @*<input type="submit" class="btn btn-sm btn-info" name="CapNhat" value="Cập nhật giỏ hàng" />*@
+
+
+                                        <button><a class="btn" href="/Checkout/Index">Checkout</a></button>
+
+
+                                        @*<button href="/Checkout/Index">Checkout</button>*@
+                                    </div>
+                                    @*}*@
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+    <!-- Cart End -->
+
+
